@@ -1,0 +1,45 @@
+\documentclass[letterpaper,11pt]{article}
+
+% Choose bibliography style for formatting list of publications
+\usepackage[utf8]{inputenc}
+\usepackage[defernumbers=true,style=ieee,url=false,doi=false,maxbibnames=99,sorting=ydnt,dashed=false]{biblatex}
+\addbibresource{papers.bib}
+\bibliography{papers.bib}
+
+% Choose theme, e.g. black, RedViolet, ForestGreen, MidnightBlue
+\def\theme{black}
+
+\usepackage{simplecv}
+
+ 
+\boldname{Winney}{D.}{}
+
+\begin{document}
+
+% Heading
+\headinginline
+{   Daniel Winney Corona
+    \\ [-0.3em]
+    {\small Nacido: 24/10/1994 en la Cuidad de M\'exico, MX 
+    \\[-1.4em]
+    \small CURP: WICD941024HDFNRN04
+    \\[-1.5em]
+    \small }
+}
+{   
+    {\small Última actualización: \today}\\
+        
+    \email{daniel.winney@nucleares.unam.mx} \\
+    +55-562-24660 ext. 2322 \\
+    ICN-UNAM F307\\[0.5em] 
+    ORCID: 0000-0002-8076-243X \\
+    INSPIRE: D.Winney.1      \\ 
+    GitHub: \github{dwinney} 
+}
+\vspace{-1.9em}
+\import{sections/}{education.tex}
+\import{sections/}{publications.tex}
+\import{sections/}{talks.tex}
+\import{sections/}{teaching.tex}
+
+\end{document}
