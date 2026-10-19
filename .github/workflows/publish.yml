@@ -12,8 +12,8 @@ jobs:
       - name: Compile and Deploy
         uses: jonhue/pubtex-action@main
         with:
+          working_directory: /tex
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           files: |
-            tex/papers.bib
-            tex/main.tex
+            main.tex
           index_page: README.md
