@@ -9,9 +9,141 @@
 % Choose theme, e.g. black, RedViolet, ForestGreen, MidnightBlue
 \def\theme{black}
 
-\usepackage{simplecv}
+% Packages
+\usepackage[cm]{fullpage}                   % Margins
+\usepackage[hidelinks]{hyperref}           % Hyperlinks
+\usepackage{titlesec}                       % Title formatting
+\usepackage{subfiles}                       % File importing
+\usepackage{multicol}                       % Multiple columns
+\usepackage[dvipsnames]{xcolor}    % Coloring
+\usepackage{enumitem}                       % List customization
+\usepackage{lastpage}                       % Page numbering
+\usepackage{fancyhdr}                       % Footers
+\usepackage[english]{babel}         % Language styles
+\usepackage[ddmmyyyy]{datetime} 
 
- 
+% % Chinese
+\usepackage{CJKutf8}
+
+% Styling
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Quotes
+\usepackage[autostyle,english=american]{csquotes}
+\MakeOuterQuote{"}
+
+% Hyperlinks
+% \newcommand{\link}[2]{\href{#1}{\underline{\smash{#2}}}}
+\newcommand{\link}[2]{\href{#1}{#2}}
+
+% Define colors
+\definecolor{color-text}{gray}{0.10}    % light black
+\definecolor{color-detail}{gray}{0.40}  % dark gray
+\colorlet{color-title}{\theme}          % black
+
+% Set text color
+\makeatletter
+\newcommand{\globalcolor}[1]{\color{#1}\global\let\default@color\current@color}
+\makeatother
+\AtBeginDocument{\globalcolor{color-text}}
+
+% Shorthand
+\newcommand{\github}[1]{\href{https://github.com/#1/}{github.com/#1}}
+\newcommand{\email}[1]{\href{mailto:#1}{#1}}
+\newcommand{\website}[1]{\href{https://#1/}{#1}}
+\newcommand{\linkedin}[1]{\href{https://www.linkedin.com/in/#1/}{#1}}
+
+% Inline heading
+\newcommand{\headinginline}[2]{
+    \begin{minipage}[t]{0.60\textwidth}
+    \fontfamily{put} \selectfont
+    \vspace*{\fill}
+    \Huge \textcolor{color-title}{#1}
+    \end{minipage}
+    \begin{minipage}[t]{0.35\textwidth}
+    \begin{flushright}
+    #2
+    \end{flushright}
+    \end{minipage}
+}
+
+% Two-columns
+\newcommand{\sidebyside}[2]{
+    \begin{multicols}{2}
+    #1 \columnbreak
+    #2 \end{multicols}
+}
+
+% Section titles
+\titleformat{\section}{
+    \scshape\raggedright\Large\color{color-title}}{}{0em}{}[\color{color-title}\titlerule
+    \vspace{-\smallskipamount}]
+
+% Lists
+\newcommand{\outerlist}[1]{
+    \begin{itemize}[leftmargin=*] #1 \end{itemize}}
+\newcommand{\denseouterlist}[1]{
+    \begin{itemize}[leftmargin=*,itemsep=0pt] #1 \end{itemize}}
+\newcommand{\innerlist}[1]{
+    \begin{itemize}[topsep=0pt] #1 \end{itemize}}
+\newcommand{\orderedouterlist}[1]{
+    \begin{enumerate}[leftmargin=*] #1 \end{enumerate}}
+
+% List items
+\newcommand{\entry}[1]{\item\small{#1}}
+\newcommand{\entryextra}[1]{\textcolor{color-detail}{\\  \small{#1}}}
+\newcommand{\entrylabeled}[2][]{\item[#1]\small{#2}}
+
+\newcommand{\entrymid}[4][]{
+    \item[#1] \small{#2} \hfill \small{#3}
+    \vspace{-\smallskipamount} \item[]\small{\textit{#4}}}
+
+\newcommand{\entrybig}[5][]
+{\item[#1]
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+    #2 & #3 \\ 
+    {\small#4} & {\small #5} \\ 
+    \end{tabular*}
+}
+\newcommand{\entrybigger}[7][]
+{\item[#1]
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+    #2 & #3 \\ #4 & #5 \\ 
+    {\small#6} & {\small #7} \\ 
+    \end{tabular*}
+}
+
+% Fill year
+\newcommand{\fillyear}[1]{\phantom{#1}}
+
+% Make author name bold: https://tex.stackexchange.com/a/327046
+\newcommand*{\boldname}[3]{%
+  \def\lastname{#1}%
+  \def\firstname{#2}%
+  \def\firstinit{#3}}
+\boldname{}{}{}
+
+\renewcommand{\mkbibnamegiven}[1]{%
+  \ifboolexpr{ ( test {\ifdefequal{\firstname}{\namepartgiven}} or test {\ifdefequal{\firstinit}{\namepartgiven}} ) and test {\ifdefequal{\lastname}{\namepartfamily}} }
+  {\mkbibbold{#1}}{#1}%
+}
+
+\renewcommand{\mkbibnamefamily}[1]{%
+  \ifboolexpr{ ( test {\ifdefequal{\firstname}{\namepartgiven}} or test {\ifdefequal{\firstinit}{\namepartgiven}} ) and test {\ifdefequal{\lastname}{\namepartfamily}} }
+  {\mkbibbold{#1}}{#1}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HEADER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \boldname{Winney}{D.}{}
 
 \begin{document}
@@ -37,9 +169,272 @@
     GitHub: \github{dwinney} 
 }
 \vspace{-1.9em}
-\import{sections/}{education.tex}
-\import{sections/}{publications.tex}
-\import{sections/}{talks.tex}
-\import{sections/}{teaching.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EDUCATION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Resumen Académico}
+{
+    \outerlist{
+    \entrybig
+    {\textbf{Instituto de Ciencias Nucleares,}}{Ciudad de México, MX}
+    {\textbf{Universidad Nacional Autónoma de México}}{2025 \textendash Presente}\\
+    \small{Investigador Asociado C}
+
+    \entrybig
+    {\textbf{Helmholtz-Institut für Strahlen- und Kernphysik,}}
+    {Bonn, DE}
+    {\textbf{Rheinische Friedrich-Wilhelms-Universität Bonn}}
+    {2023 \textendash 2025}\\
+    {Investigador posdoctoral}\\
+    % \small{Asesor: Ulf-G. Mei\ss{}ner} 
+
+    \begin{CJK*}{UTF8}{gbsn}
+    \entrybig
+    {\textbf{量子物质研究院 \, (Institute for Quantum Matter),}}{Guangzhou, CN}
+    {\textbf{华南师范大学 \, (South China Normal University)}}{2022 \textendash 2023}\\
+    \small{Investigador posdoctoral}\\
+    % \small{Asesor: Qian Wang} 
+    \end{CJK*}
+
+    \entrybig
+    {\textbf{Center for Exploration of Energy and Matter,}}{Bloomington, US}
+    {\textbf{Indiana University, Bloomington}}{2016 \textendash 2021}\\
+    \small{Doctorado en Física}\\
+    \small{Asesor: Adam Szczepaniak}\\
+    \small{Titulo de tesis: \textit{Amplitude studies in three-body decays and photoproduction}}
+
+    \entrybig
+    {\textbf{California State University, San Bernardino}}{San Bernardino, US}
+    {Licenciatura en Física \textit{con honores de la universidad y del departamento} }{2012 \textendash 2016} \\
+    {\small \vspace{2pt} Licenciatura en Matemática \textit{con honores de la universidad} \\ Licenciatura en Economía }\\
+    {\small Asesores: Carol Hood \& Laura Woodney (Física) Corey Dunn (Matemática)}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PUBLICATIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{*}
+\newrefcontext[sorting=ydnt]
+\printbibliography[
+title={Publicaciones \\ \textup{\footnotesize{* Todos siguen la convención de "autores principales" primero, seguidos por el resto de colaboradores en orden alfabético.}}}, keyword={pub}, resetnumbers=true]
+\printbibliography[title=Contribuciones a Reportes Técnicos y White Papers, keyword={contributed},resetnumbers=true]
+\printbibliography[title=Preimpresiones, keyword={preprint},resetnumbers=true]
+\printbibliography[title=Actas de Conferencia, keyword={proceedings},resetnumbers=true]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TALKS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Conferencias Invitadas}
+\denseouterlist
+{
+    \entrymid[\textbullet]
+    {\textbf{The why and how of data-driven analysis in near-threshold photoproduction }}{24 Junio 2026}{18th International Workshop on Meson Production, Properties and Interaction (MESON2026) - Jagiellonian University (Krakow, PL)   
+    }
+
+    \entrymid[\textbullet]
+    {\textbf{ Khuri and Treiman meet Deck: \\
+    \, Combining production and rescattering effects for} $\pi_1(1600) \to 3\pi$}{15 Junio 2026}{17th COMPASS Analysis Phase International Mini-Workshop (COMAP-XVII) - CERN (Online)   
+    }
+
+    \entrymid[\textbullet]
+    {\textbf{$J/\psi$ photoproduction near threshold: Where we are and where we can go}}{20 Abril 2026}{Photoproduction Studies on the Deuteron and Helium-3 in Hall D - Jefferson Lab (Online)   
+    }
+
+    \entrymid[\textbullet]
+    {\textbf{Regge Theory in the Modern Era
+    }}{23 Junio 2025}{EMMI Collaboration Meeting: QCD at FAIR Workshop 2025 (Catania, IT). 
+    }
+
+    \entrymid[\textbullet]
+    {\textbf{Heavy (Exotic) Spectroscopy in Photoproduction: A Theoretical Overview
+    }}{9 Diciembre 2024}{Science at the Luminosity Frontier: Jefferson Lab at 22 GeV - INFN-LNF (Frascati, IT). 
+    }
+
+    \entrymid[\textbullet]
+    {\textbf{Heavy meson spectroscopy in photoproduction}}{29 Mayo 2024}{PWA13/ATHOS8 - College of William \& Mary (Williamsburg, US). 
+    }
+
+    \entrymid[\textbullet]
+    {\textbf{$J/\psi$ photoproduction near threshold}}{6 Febrero 2024}{Physics opportunities with proton beams at SIS100 - University of Wuppertal (Wuppertal, DE). 
+    }
+
+    \entrymid[\textbullet]
+    {\textbf{Charmonium (and beyond) in Photoproduction}}{24 Enero 2024}{Future Directions in Spectroscopy Analysis (FSDA) - University of Genoa (Genoa, IT). 
+    }
+
+    \entrymid[\textbullet]
+    {\textbf{Dynamics of $J/\psi$ photoproduction near threshold}}{6 Junio 2023}{HADRON 2023 - University of Genoa (Genoa, IT). 
+    }
+
+    \entrymid[\textbullet]
+    {\textbf{Semi-Inclusive XYZ Production}}{16 Agosto 2022}{Exotic heavy meson spectroscopy and structure at EIC - Stony Brook, USA (Online). 
+    }
+
+    \entrymid[\textbullet]
+    {\textbf{Feynman integral representation of triangle rescattering (and KT)
+    }}{20 Diciembre 2021}{Hadronic Three-body Christmas
+    - MIAPP (Online).
+    }
+
+    \entrymid[\textbullet]
+    {\textbf{Exotic Spectroscopy at the EIC}}{19 Marzo 2021}{IR2@EIC: Science and Instrumentation of the 2nd IR for the EIC (Online).
+    }
+
+    \entrymid[\textbullet]
+    {\textbf{Exotic Spectroscopy @ EIC from JPAC}}{29 Enero 2021}{EIC opportunities for Snowmass (Online).
+    }
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SEMINARS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Seminarios y Coloquios Invitados}
+\denseouterlist
+{
+    \entrymid[\textbullet]
+    {\textbf{Atacando el problema hadrónico de tres cuerpos con el formalismo de Khuri-Treiman}}{19 Mayo 2026}{Seminario de Altas Energías - CINVESTAV (Ciudad de México, MX)   
+    }
+
+    \entrymid[\textbullet]
+    {\textbf{El híbrido mas ligero y el problema hadrónico de tres cuerpos }}{10 Marzo 2026}{Seminario de Altas Energías del ICN y del IF - Universidad Nacional Autónoma de México (Ciudad de México, MX)   
+    }
+
+    \entrymid[\textbullet]
+    {\textbf{Hadrons in the $\ell$-plane: Applications of Regge theory in the modern era}}{16 Enero 2026}{ICN Coloquio de Investigación - Universidad Nacional Autónoma de México (Ciudad de México, MX)   
+    }
+
+    \entrymid[\textbullet]
+    {\textbf{Shedding Light on QCD Exotica}}{03 Marzo 2025}{Nuclear Theory Seminar - Indiana University (Bloomington, US). 
+    }
+
+
+    \entrymid[\textbullet]
+    {\textbf{$J/\psi$ photoproduction near threshold: Lore and analysis}}{18 Diciembre 2023}{HISKP Theory Seminar - University of Bonn (Bonn, DE). 
+    }
+
+    \entrymid[\textbullet]
+    {\textbf{Phenomenology towards an exotic spectroscopy program at future Electron-Ion colliders
+    }}{13 Mayo 2022}{SCNU IQM Seminars - South China Normal University (Guangzhou, CN).
+    }
+
+    \entrymid[\textbullet]
+    {\textbf{XYZP Spectroscopy in Photoproduction}}{12 Octubre 2020}{Theory Center Invited Seminar - Jefferson Lab (Online).
+    }
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ADVISING
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Asesoría}
+\outerlist{
+%%
+    \entry{\textbf{Francisco Hernández Morelos} - Servicio Social \hfill 2026 - Presente}
+        \innerlist{
+            \entry{Proyecto: "Re-visitando la trayectoria de Regge del meson $\sigma$ con isobaras hipergeométricas."}
+        }
+%%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEACHING
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Docencia}
+\outerlist{
+    %%
+    \entry{\textbf{2027-01 Física Nuclear y Subnuclear} en Facultad de Ciencias, Universidad Nacional Autónoma de México}
+    %%
+}
+
+\section{Otras Actividades Docentes}
+\outerlist{
+%%
+    \entry{\textbf{Multi-Particle Reactions from the Standard Model} en University of California, Berkeley \hfill 13-16 Julio 2025}
+        \innerlist{
+            \entry{Invitado a impartir conferencias introductorias sobre los temas de la teoría de la matriz $S$ y su aplicación a la física de hadrones.}
+        }
+    \entry{\textbf{Modern Techniques in Hadron Spectroscopy} en Ruhr University, Bochum \hfill 15-26 Julio 2024}
+        \innerlist{
+            \entry{Asistencia en sesiones de ejercicio como parte de la escuela de verano organizada por la colaboración JPAC.}
+        }
+    %%
+\entry{\textbf{Tutor} en University of Bonn}
+    \innerlist{
+        \entry{PHYSICS7501 [Instructores: Akaki Rusetsky \& Ulf-G. Mei\ss ner] \hfill Invierno 2025}
+        \entry{PHYSICS606 [Instructor: Manuel Drees] \hfill Invierno 2024}
+        \entry{PHYSICS7501 [Instructores: Thomas Luu, Andreas Nogga, \& Deborah R\"{o}nchen] \hfill Invierno 2023}
+    }
+%%
+    \entry{\textbf{IU Global Classroom -- P655 Reaction Theory} en Indiana University, Bloomington \hfill Otoño 2020}
+        \innerlist{
+            \entry{Codirigiré varios proyectos de investigación con estudiantes sobre temas relacionados con la teoría de la dispersión y la fenomenología de los hadrones, en colaboración con el JPAC.}
+        }
+        %%
+    \entry{\textbf{Associate Instructor} en Indiana University, Bloomington}
+        \innerlist{
+            \entry{P201 [Instructores: Jinfeng Liao \& Sabine Lammers] \hfill Otoño 2018}
+            \entry{H222 [Instructores: Mark Messier \& John P. Carini] \hfill Primavera 2017}
+            \entry{P202 [Instructores: J. Timothy Londergan \& Philip J. Richerme] \hfill Otoño 2017}
+            
+        }
+%%
+\entry{\textbf{Peer Lab Instructor} en California State University, San Bernardino}
+    \innerlist{
+        \entry{Programa para la enseñanza entre pares de cursos de nivel superior "de alto riesgo"}
+        \entry{PHYS313 [Instructor: Paul Renteln] \hfill Primavera 2016}
+        \entry{PHYS314 [Instructor: Paul Renteln] \hfill Invierno 2016}
+    }
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OUTREACH
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Divulgación}
+\outerlist{
+    \entry{\textbf{Día de Puertas Abiertas} en Universidad Nacional Autónoma de México \hfill 2026}
+        \innerlist{
+        \entry{Formé parte de una `Mesa de Conversación' con el fin de dar al publico un foro a hacer preguntas y conocer la investigación que desarrollamos en el ICN y ciencia en general. }
+        }
+    \entry{\textbf{Astronómica para el Barrio} \hfill 2026 - Presente}
+        \innerlist{
+            \entry{Formo parte del equipo de organización y participo en charlas y talleres divulgativos sobre temas de astronomía y astrofísica en la Ciudad de México.}
+            \entry{Hemos dado talleres en la Casa de Cultura en Col. Santa María la Ribera, Faro Cosmos, y el Jardín Tlallipan.}
+        }
+%%
+    \entry{\textbf{Estancias de Verano} en la Universidad Nacional Autónoma de México \hfill 2026}
+        \innerlist{
+            \entry{Recibí tres estudiantes de preparatoria para realizar actividades de investigación fundamental accesibles.}
+        }
+%%
+    \entry{\textbf{Premio para el Mejor Tesis} en la Universidad Nacional Autónoma de México \hfill 2026}
+        \innerlist{
+            \entry{Participé como miembro del jurado reconocer los mejores trabajos de tesis de cada nivel estudiantil en el ICN.}
+        }
+%%
+    \entry{\textbf{Noche de las Estrellas} en la Universidad Nacional Autónoma de México \hfill 2025}
+        \innerlist{
+            \entry{Evento comunitario anual para comunicar temas de interés en la astronomía y física.}
+            \entry{Apoyé en la comunicación con miembros de la comunidad sobre cualquiera pregunta que tenían sobre la física cuántica y/o la investigación que hacemos en el ICN.}
+        }
+%%
+    \entry{\textbf{Science Fest! + Physics Open House} en Indiana University, Bloomington \hfill 2017-2019}
+        \innerlist{
+            \entry{Evento anual de divulgación para que las familias de la comunidad se acerquen a las ciencias en el campus de IU.}
+            \entry{Apoyé en las demostraciones y explicaciones de fenómenos físicos.}
+        }
+%%
+    \entry{\textbf{Foundations in Science and Mathematics} en Indiana University, Bloomington \hfill 2018}
+        \innerlist{
+            \entry{Diseñé e impartí clases diarias para un curso intensivo de dos semanas dirigido a estudiantes locales de secundaria y preparatoria interesados en STEM.}
+            \entry{Clase llamada "Intro to the Universe" que ofrecía una visión general de temas interesantes de astronomía y astrofísica a un nivel accesible.}
+        }
+}
 
 \end{document}
