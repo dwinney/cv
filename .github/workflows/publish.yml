@@ -15,4 +15,5 @@ jobs:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           files: |
             tex/main.tex
+            tex/papers.bib
           index_page: README.md
