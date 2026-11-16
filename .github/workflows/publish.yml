@@ -14,5 +14,6 @@ jobs:
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           files: |
-            main.tex
+            espanol.tex
+            english.tex
           index_page: README.md
